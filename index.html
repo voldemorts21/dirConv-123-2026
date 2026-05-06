@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Directorio Móvil - Molino Isla</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f2f4f8;
+            padding: 16px;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 24px 20px;
+            border-radius: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+
+        .search-section {
+            background: white;
+            border-radius: 60px;
+            margin-bottom: 20px;
+            padding: 4px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .search-icon {
+            font-size: 1.3rem;
+        }
+
+        .search-section input {
+            flex: 1;
+            border: none;
+            padding: 14px 0;
+            font-size: 1rem;
+            background: transparent;
+            outline: none;
+        }
+
+        .stats {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2a5298;
+            text-align: center;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .contacts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Tarjeta normal */
+        .contact-card {
+            background: white;
+            border-radius: 24px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.1s ease;
+            border: 1px solid #edf2f7;
+        }
+
+        /* Tarjeta con observación DEDUCTIVO: borde rojo y fondo suave */
+        .contact-card.deductivo {
+            border: 2px solid #e53e3e;
+            background: #fff5f5;
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .contact-number {
+            background: #eef2ff;
+            color: #1e3c72;
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 4px 12px;
+            border-radius: 40px;
+            display: inline-block;
+        }
+
+        .name-section {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .contact-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+
+        /* Badge rojo para DEDUCTIVO */
+        .badge-danger {
+            background-color: #e53e3e;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .phone-info {
+            font-size: 0.8rem;
+            color: #4b5563;
+            margin: 8px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #f8fafc;
+            padding: 6px 12px;
+            border-radius: 30px;
+            width: fit-content;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 8px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-call {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 2px 6px rgba(16,185,129,0.3);
+        }
+
+        .btn-call:active {
+            transform: scale(0.97);
+            background: #059669;
+        }
+
+        .btn-wa {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 2px 6px rgba(37,211,102,0.3);
+        }
+
+        .btn-wa:active {
+            transform: scale(0.97);
+            background: #128C7E;
+        }
+
+        /* Estados */
+        .loading-state, .error-state, .empty-state {
+            background: white;
+            border-radius: 28px;
+            padding: 48px 20px;
+            text-align: center;
+            color: #4b5563;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid #2a5298;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-state {
+            color: #dc2626;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #6c757d;
+            margin-top: 30px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+            .btn {
+                font-size: 0.9rem;
+                padding: 10px 8px;
+            }
+            .contact-name {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📇 Directorio</h1>
+        <p>Molino Isla · Asillo</p>
+    </div>
+
+    <div class="search-section">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar por nombre o DNI..." autocomplete="off">
+    </div>
+
+    <div id="statsContainer" class="stats hidden">📌 0 contactos</div>
+
+    <div id="loadingMessage" class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando directorio...</p>
+    </div>
+
+    <div id="errorMessage" class="error-state hidden">
+        ⚠️ Error al cargar los datos.<br>Verifica tu conexión o intenta más tarde.
+    </div>
+
+    <div id="emptyMessage" class="empty-state hidden">
+        😕 No se encontraron contactos con esa búsqueda.
+    </div>
+
+    <div id="contactsList" class="contacts-list"></div>
+
+    <div class="footer">
+        <p>📞 Llamar o WhatsApp  |  <span style="color:#e53e3e;">Rojo = DEDUCTIVO</span></p>
+    </div>
+</div>
+
+<script>
+    const API_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnTxt65h-VbNQsNHU7N1Y7PV17t2kLAnZr9RsXn46QZ4qDyxIt_2mDomkxMrD3uqOQnXFTWBGVBfhFLPkGv57GZdn0S5McfKruNKZDvMBdNS8xiJkSkId2PFmcRTqdJofm6mz8ZUu1k3RDGqGuzrYaejGsWdicP2Zd71BVfBmVtYhvH7JY3XvRc_-LFuL3i2QL0CtTJ-MUXFAyrAT5M-6Z0UVM2VaDcez-k0_TDUWNNX1EcjRbinKyddN7-e4cnVKXxOoizq1yM8340cyCgY0FLa-N0q-g&lib=MMQl0PtmD55ngkxHB6ya8jiKtw_75YDf7';
+    
+    let allContacts = [];
+
+    function formatPhoneNumber(phone) {
+        if (!phone) return null;
+        let clean = String(phone).replace(/[^0-9]/g, '');
+        if (clean.length === 0) return null;
+        if (clean.length === 9) return '+51' + clean;
+        if (clean.length === 11 && clean.startsWith('51')) return '+' + clean;
+        if (!clean.startsWith('51') && clean.length > 9) return '+51' + clean;
+        return '+' + clean;
+    }
+
+    function getTelLink(phone) {
+        let formatted = formatPhoneNumber(phone);
+        if (!formatted) return '#';
+        return `tel:${formatted}`;
+    }
+
+    function getWhatsAppLink(phone) {
+        let formatted = formatPhoneNumber(phone);
+        if (!formatted) return '#';
+        return `https://wa.me/${formatted.replace('+', '')}`;
+    }
+
+    // Función para verificar si la observación es "DEDUCTIVO" (case-insensitive, sin espacios)
+    function esDeductivo(observacion) {
+        if (!observacion) return false;
+        let obs = String(observacion).trim().toUpperCase();
+        return obs === "DEDUCTIVO";
+    }
+
+    function renderContacts(contacts) {
+        const container = document.getElementById('contactsList');
+        const statsDiv = document.getElementById('statsContainer');
+        const emptyDiv = document.getElementById('emptyMessage');
+        
+        if (!contacts || contacts.length === 0) {
+            container.innerHTML = '';
+            statsDiv.classList.add('hidden');
+            emptyDiv.classList.remove('hidden');
+            return;
+        }
+        
+        emptyDiv.classList.add('hidden');
+        statsDiv.classList.remove('hidden');
+        statsDiv.innerHTML = `👥 ${contacts.length} contactos encontrados`;
+        
+        let html = '';
+        for (let c of contacts) {
+            const numero = c['N°'] || '';
+            const nombre = (c['NOMBRES Y APELLIDOS'] || 'Sin nombre').trim();
+            let telefono = c['NUMERO CELULAR'] || '';
+            if (typeof telefono === 'number') telefono = telefono.toString();
+            const observacion = c['OBSERVACIONES'] || '';
+            const deductivo = esDeductivo(observacion);
+            
+            const hasPhone = telefono && telefono !== '0' && telefono !== '';
+            const telLink = hasPhone ? getTelLink(telefono) : '#';
+            const waLink = hasPhone ? getWhatsAppLink(telefono) : '#';
+            const displayPhone = hasPhone ? telefono : 'No disponible';
+            
+            // Clase adicional si es deductivo
+            const cardClass = deductivo ? 'contact-card deductivo' : 'contact-card';
+            
+            // Badge rojo si aplica
+            const badgeHtml = deductivo ? '<span class="badge-danger">⚠️ DEDUCTIVO</span>' : '';
+            
+            html += `
+                <div class="${cardClass}">
+                    <div class="card-header">
+                        <span class="contact-number">#${numero}</span>
+                        ${badgeHtml}
+                    </div>
+                    <div class="name-section">
+                        <div class="contact-name">${escapeHtml(nombre)}</div>
+                    </div>
+                    <div class="phone-info">📱 ${escapeHtml(displayPhone)}</div>
+                    <div class="action-buttons">
+                        <a href="${telLink}" class="btn btn-call ${!hasPhone ? 'disabled-link' : ''}" ${!hasPhone ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">
+                            📞 Llamar
+                        </a>
+                        <a href="${waLink}" class="btn btn-wa ${!hasPhone ? 'disabled-link' : ''}" ${!hasPhone ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">
+                            💬 WhatsApp
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+    
+    function filterContacts(searchTerm) {
+        if (!searchTerm.trim()) {
+            renderContacts(allContacts);
+            return;
+        }
+        const term = searchTerm.toLowerCase().trim();
+        const filtered = allContacts.filter(contact => {
+            const nombre = (contact['NOMBRES Y APELLIDOS'] || '').toLowerCase();
+            const dni = (contact['DNI'] || '').toLowerCase();
+            return nombre.includes(term) || dni.includes(term);
+        });
+        renderContacts(filtered);
+    }
+    
+    async function loadContacts() {
+        const loadingDiv = document.getElementById('loadingMessage');
+        const errorDiv = document.getElementById('errorMessage');
+        const contactsDiv = document.getElementById('contactsList');
+        
+        loadingDiv.classList.remove('hidden');
+        errorDiv.classList.add('hidden');
+        contactsDiv.innerHTML = '';
+        document.getElementById('emptyMessage').classList.add('hidden');
+        document.getElementById('statsContainer').classList.add('hidden');
+        
+        try {
+            const response = await fetch(API_URL);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+            
+            let contactsArray = null;
+            if (Array.isArray(data)) {
+                contactsArray = data;
+            } else if (data.data && Array.isArray(data.data)) {
+                contactsArray = data.data;
+            } else {
+                throw new Error('Formato inesperado');
+            }
+            
+            if (!contactsArray || contactsArray.length === 0) {
+                loadingDiv.classList.add('hidden');
+                document.getElementById('emptyMessage').classList.remove('hidden');
+                document.getElementById('emptyMessage').innerHTML = '📭 No hay contactos registrados.';
+                return;
+            }
+            
+            allContacts = contactsArray;
+            renderContacts(allContacts);
+            loadingDiv.classList.add('hidden');
+            
+        } catch (err) {
+            console.error(err);
+            loadingDiv.classList.add('hidden');
+            errorDiv.classList.remove('hidden');
+            errorDiv.innerHTML = `⚠️ Error: ${err.message}<br>No se pudo cargar el directorio.`;
+        }
+    }
+    
+    let debounceTimer;
+    function setupSearch() {
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                filterContacts(e.target.value);
+            }, 300);
+        });
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        loadContacts();
+        setupSearch();
+    });
+</script>
+</body>
+</html>
