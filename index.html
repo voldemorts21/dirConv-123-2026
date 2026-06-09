@@ -74,6 +74,31 @@
             outline: none;
         }
 
+        .refresh-btn {
+            background: #eef2ff;
+            border: none;
+            border-radius: 40px;
+            padding: 8px 12px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #1e3c72;
+            font-weight: 600;
+        }
+
+        .refresh-btn:active {
+            transform: scale(0.95);
+            background: #d9e2ef;
+        }
+
+        .refresh-btn.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
         .stats {
             background: white;
             padding: 12px 16px;
@@ -92,7 +117,6 @@
             gap: 14px;
         }
 
-        /* Tarjeta normal */
         .contact-card {
             background: white;
             border-radius: 24px;
@@ -102,7 +126,6 @@
             border: 1px solid #edf2f7;
         }
 
-        /* Tarjeta con observación DEDUCTIVO: borde rojo y fondo suave */
         .contact-card.deductivo {
             border: 2px solid #e53e3e;
             background: #fff5f5;
@@ -133,7 +156,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
 
         .contact-name {
@@ -144,7 +167,6 @@
             word-break: break-word;
         }
 
-        /* Badge rojo para DEDUCTIVO */
         .badge-danger {
             background-color: #e53e3e;
             color: white;
@@ -158,23 +180,27 @@
             letter-spacing: 0.5px;
         }
 
-        .phone-info {
-            font-size: 0.8rem;
-            color: #4b5563;
+        .phone-group {
             margin: 8px 0 12px 0;
+            background: #f8fafc;
+            border-radius: 30px;
+            padding: 8px 12px;
+        }
+
+        .phone-number {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 6px;
-            background: #f8fafc;
-            padding: 6px 12px;
-            border-radius: 30px;
-            width: fit-content;
+            word-break: break-all;
         }
 
         .action-buttons {
             display: flex;
             gap: 12px;
-            margin-top: 8px;
         }
 
         .btn {
@@ -182,11 +208,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 12px 8px;
+            gap: 8px;
+            padding: 10px 8px;
             border-radius: 60px;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-decoration: none;
             transition: all 0.2s;
             border: none;
@@ -215,7 +241,82 @@
             background: #128C7E;
         }
 
-        /* Estados */
+        .extra-dropdown {
+            margin-top: 12px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 12px;
+        }
+
+        .dropdown-btn {
+            background: #e2e8f0;
+            border: none;
+            border-radius: 40px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1e293b;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+            width: auto;
+        }
+
+        .dropdown-btn:active {
+            transform: scale(0.96);
+        }
+
+        .dropdown-btn.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            background: #cbd5e1;
+        }
+
+        .extra-list {
+            margin-top: 12px;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .extra-list.show {
+            display: flex;
+        }
+
+        .extra-item {
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 10px 12px;
+        }
+
+        .extra-number {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #334155;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .extra-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            flex: 1;
+            padding: 8px 6px;
+            font-size: 0.8rem;
+            gap: 6px;
+        }
+
+        .disabled-link {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
         .loading-state, .error-state, .empty-state {
             background: white;
             border-radius: 28px;
@@ -260,10 +361,14 @@
                 padding: 12px;
             }
             .btn {
-                font-size: 0.9rem;
-                padding: 10px 8px;
+                font-size: 0.85rem;
+                padding: 9px 6px;
             }
             .contact-name {
+                font-size: 1rem;
+            }
+            .refresh-btn {
+                padding: 6px 10px;
                 font-size: 1rem;
             }
         }
@@ -279,6 +384,7 @@
     <div class="search-section">
         <span class="search-icon">🔍</span>
         <input type="text" id="searchInput" placeholder="Buscar por nombre o DNI..." autocomplete="off">
+        <button id="refreshBtn" class="refresh-btn" title="Recargar datos">🔄</button>
     </div>
 
     <div id="statsContainer" class="stats hidden">📌 0 contactos</div>
@@ -299,7 +405,7 @@
     <div id="contactsList" class="contacts-list"></div>
 
     <div class="footer">
-        <p>📞 Llamar o WhatsApp  |  <span style="color:#e53e3e;">Rojo = DEDUCTIVO</span></p>
+        <p>📞 Llamar o WhatsApp | <span style="color:#e53e3e;">Rojo = DEDUCTIVO</span></p>
     </div>
 </div>
 
@@ -307,9 +413,17 @@
     const API_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnTxt65h-VbNQsNHU7N1Y7PV17t2kLAnZr9RsXn46QZ4qDyxIt_2mDomkxMrD3uqOQnXFTWBGVBfhFLPkGv57GZdn0S5McfKruNKZDvMBdNS8xiJkSkId2PFmcRTqdJofm6mz8ZUu1k3RDGqGuzrYaejGsWdicP2Zd71BVfBmVtYhvH7JY3XvRc_-LFuL3i2QL0CtTJ-MUXFAyrAT5M-6Z0UVM2VaDcez-k0_TDUWNNX1EcjRbinKyddN7-e4cnVKXxOoizq1yM8340cyCgY0FLa-N0q-g&lib=MMQl0PtmD55ngkxHB6ya8jiKtw_75YDf7';
     
     let allContacts = [];
+    let isLoading = false;
+
+    function isValidPhone(value) {
+        if (value === undefined || value === null) return false;
+        let str = String(value).trim();
+        if (str === '' || str === '0') return false;
+        return true;
+    }
 
     function formatPhoneNumber(phone) {
-        if (!phone) return null;
+        if (!isValidPhone(phone)) return null;
         let clean = String(phone).replace(/[^0-9]/g, '');
         if (clean.length === 0) return null;
         if (clean.length === 9) return '+51' + clean;
@@ -330,11 +444,21 @@
         return `https://wa.me/${formatted.replace('+', '')}`;
     }
 
-    // Función para verificar si la observación es "DEDUCTIVO" (case-insensitive, sin espacios)
     function esDeductivo(observacion) {
         if (!observacion) return false;
         let obs = String(observacion).trim().toUpperCase();
         return obs === "DEDUCTIVO";
+    }
+
+    function escapeHtml(raw) {
+        if (raw == null) return '';
+        let str = String(raw);
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
     }
 
     function renderContacts(contacts) {
@@ -357,53 +481,104 @@
         for (let c of contacts) {
             const numero = c['N°'] || '';
             const nombre = (c['NOMBRES Y APELLIDOS'] || 'Sin nombre').trim();
-            let telefono = c['NUMERO CELULAR'] || '';
-            if (typeof telefono === 'number') telefono = telefono.toString();
             const observacion = c['OBSERVACIONES'] || '';
             const deductivo = esDeductivo(observacion);
-            
-            const hasPhone = telefono && telefono !== '0' && telefono !== '';
-            const telLink = hasPhone ? getTelLink(telefono) : '#';
-            const waLink = hasPhone ? getWhatsAppLink(telefono) : '#';
-            const displayPhone = hasPhone ? telefono : 'No disponible';
-            
-            // Clase adicional si es deductivo
             const cardClass = deductivo ? 'contact-card deductivo' : 'contact-card';
-            
-            // Badge rojo si aplica
             const badgeHtml = deductivo ? '<span class="badge-danger">⚠️ DEDUCTIVO</span>' : '';
             
-            html += `
-                <div class="${cardClass}">
-                    <div class="card-header">
-                        <span class="contact-number">#${numero}</span>
-                        ${badgeHtml}
+            let numero1 = c['NUMERO1'];
+            let numero2 = c['NUMERO2'];
+            let numero3 = c['NUMERO3'];
+            
+            const hasNum1 = isValidPhone(numero1);
+            const hasNum2 = isValidPhone(numero2);
+            const hasNum3 = isValidPhone(numero3);
+            const hasAnyExtra = hasNum2 || hasNum3;
+            
+            const telLink1 = hasNum1 ? getTelLink(numero1) : '#';
+            const waLink1 = hasNum1 ? getWhatsAppLink(numero1) : '#';
+            const displayPhone1 = hasNum1 ? numero1 : 'No disponible';
+            
+            let extraItemsHtml = '';
+            if (hasNum2) {
+                const telLink2 = getTelLink(numero2);
+                const waLink2 = getWhatsAppLink(numero2);
+                extraItemsHtml += `
+                    <div class="extra-item">
+                        <div class="extra-number">📱 ${escapeHtml(numero2)}</div>
+                        <div class="extra-buttons">
+                            <a href="${telLink2}" class="btn btn-small btn-call" target="_blank">📞 Llamar</a>
+                            <a href="${waLink2}" class="btn btn-small btn-wa" target="_blank">💬 WhatsApp</a>
+                        </div>
                     </div>
-                    <div class="name-section">
-                        <div class="contact-name">${escapeHtml(nombre)}</div>
+                `;
+            }
+            if (hasNum3) {
+                const telLink3 = getTelLink(numero3);
+                const waLink3 = getWhatsAppLink(numero3);
+                extraItemsHtml += `
+                    <div class="extra-item">
+                        <div class="extra-number">📱 ${escapeHtml(numero3)}</div>
+                        <div class="extra-buttons">
+                            <a href="${telLink3}" class="btn btn-small btn-call" target="_blank">📞 Llamar</a>
+                            <a href="${waLink3}" class="btn btn-small btn-wa" target="_blank">💬 WhatsApp</a>
+                        </div>
                     </div>
-                    <div class="phone-info">📱 ${escapeHtml(displayPhone)}</div>
+                `;
+            }
+            
+            const dropdownDisabledClass = !hasAnyExtra ? 'disabled' : '';
+            const dropdownBtnHtml = hasAnyExtra ? `
+                <div class="extra-dropdown">
+                    <button class="dropdown-btn ${dropdownDisabledClass}" data-dropdown-btn>
+                        <span>&lt;</span> Extra
+                    </button>
+                    <div class="extra-list" data-extra-list>
+                        ${extraItemsHtml}
+                    </div>
+                </div>
+            ` : '';
+            
+            html += `<div class="${cardClass}">
+                <div class="card-header">
+                    <span class="contact-number">#${escapeHtml(numero)}</span>
+                    ${badgeHtml}
+                </div>
+                <div class="name-section">
+                    <div class="contact-name">${escapeHtml(nombre)}</div>
+                </div>
+                <div class="phone-group">
+                    <div class="phone-number">📱 ${escapeHtml(displayPhone1)}</div>
                     <div class="action-buttons">
-                        <a href="${telLink}" class="btn btn-call ${!hasPhone ? 'disabled-link' : ''}" ${!hasPhone ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">
+                        <a href="${telLink1}" class="btn btn-call ${!hasNum1 ? 'disabled-link' : ''}" ${!hasNum1 ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">
                             📞 Llamar
                         </a>
-                        <a href="${waLink}" class="btn btn-wa ${!hasPhone ? 'disabled-link' : ''}" ${!hasPhone ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">
+                        <a href="${waLink1}" class="btn btn-wa ${!hasNum1 ? 'disabled-link' : ''}" ${!hasNum1 ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">
                             💬 WhatsApp
                         </a>
                     </div>
                 </div>
-            `;
+                ${dropdownBtnHtml}
+            </div>`;
         }
         container.innerHTML = html;
-    }
-    
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
+        
+        // Event listeners para dropdowns
+        document.querySelectorAll('[data-dropdown-btn]').forEach(btn => {
+            if (btn.classList.contains('disabled')) return;
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const extraList = this.parentElement.querySelector('[data-extra-list]');
+                if (extraList) {
+                    extraList.classList.toggle('show');
+                    const iconSpan = this.querySelector('span');
+                    if (iconSpan && extraList.classList.contains('show')) {
+                        iconSpan.innerHTML = '▼';
+                    } else if (iconSpan) {
+                        iconSpan.innerHTML = '&lt;';
+                    }
+                }
+            });
         });
     }
     
@@ -421,14 +596,20 @@
         renderContacts(filtered);
     }
     
-    async function loadContacts() {
+    async function loadContacts(silent = false) {
+        if (isLoading) return;
+        isLoading = true;
+        
+        const refreshBtn = document.getElementById('refreshBtn');
         const loadingDiv = document.getElementById('loadingMessage');
         const errorDiv = document.getElementById('errorMessage');
-        const contactsDiv = document.getElementById('contactsList');
         
-        loadingDiv.classList.remove('hidden');
-        errorDiv.classList.add('hidden');
-        contactsDiv.innerHTML = '';
+        if (!silent) {
+            loadingDiv.classList.remove('hidden');
+            errorDiv.classList.add('hidden');
+        }
+        refreshBtn.classList.add('disabled');
+        document.getElementById('contactsList').innerHTML = '';
         document.getElementById('emptyMessage').classList.add('hidden');
         document.getElementById('statsContainer').classList.add('hidden');
         
@@ -447,22 +628,47 @@
             }
             
             if (!contactsArray || contactsArray.length === 0) {
-                loadingDiv.classList.add('hidden');
+                if (!silent) loadingDiv.classList.add('hidden');
                 document.getElementById('emptyMessage').classList.remove('hidden');
                 document.getElementById('emptyMessage').innerHTML = '📭 No hay contactos registrados.';
+                allContacts = [];
+                renderContacts([]);
                 return;
             }
             
             allContacts = contactsArray;
             renderContacts(allContacts);
-            loadingDiv.classList.add('hidden');
+            if (!silent) loadingDiv.classList.add('hidden');
             
         } catch (err) {
             console.error(err);
-            loadingDiv.classList.add('hidden');
-            errorDiv.classList.remove('hidden');
-            errorDiv.innerHTML = `⚠️ Error: ${err.message}<br>No se pudo cargar el directorio.`;
+            if (!silent) {
+                loadingDiv.classList.add('hidden');
+                errorDiv.classList.remove('hidden');
+                errorDiv.innerHTML = `⚠️ Error: ${err.message}<br>No se pudo cargar el directorio.`;
+            } else {
+                // Si es recarga silenciosa, mostramos el error en la misma zona de estadísticas
+                const statsDiv = document.getElementById('statsContainer');
+                statsDiv.classList.remove('hidden');
+                statsDiv.innerHTML = `⚠️ Error al recargar: ${err.message}`;
+                setTimeout(() => {
+                    if (statsDiv.innerHTML.includes('Error')) {
+                        statsDiv.classList.add('hidden');
+                    }
+                }, 3000);
+            }
+        } finally {
+            isLoading = false;
+            refreshBtn.classList.remove('disabled');
         }
+    }
+    
+    function reloadContacts() {
+        if (isLoading) return;
+        // Limpiar búsqueda y recargar
+        const searchInput = document.getElementById('searchInput');
+        searchInput.value = '';
+        loadContacts(false);
     }
     
     let debounceTimer;
@@ -477,8 +683,9 @@
     }
     
     document.addEventListener('DOMContentLoaded', () => {
-        loadContacts();
+        loadContacts(false);
         setupSearch();
+        document.getElementById('refreshBtn').addEventListener('click', reloadContacts);
     });
 </script>
 </body>
