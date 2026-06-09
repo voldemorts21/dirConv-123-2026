@@ -52,7 +52,7 @@
         .search-section {
             background: white;
             border-radius: 60px;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             padding: 4px 16px;
             display: flex;
             align-items: center;
@@ -97,6 +97,84 @@
         .refresh-btn.disabled {
             opacity: 0.5;
             pointer-events: none;
+        }
+
+        /* Botón de búsqueda avanzada */
+        .advanced-toggle {
+            margin-bottom: 12px;
+            text-align: right;
+        }
+
+        .advanced-btn {
+            background: none;
+            border: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #2a5298;
+            padding: 6px 12px;
+            border-radius: 40px;
+            background: #eef2ff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .advanced-btn:active {
+            transform: scale(0.96);
+        }
+
+        .advanced-panel {
+            background: white;
+            border-radius: 24px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+            display: none;
+        }
+
+        .advanced-panel.show {
+            display: block;
+        }
+
+        .check-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .check-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: #1e293b;
+            cursor: pointer;
+        }
+
+        .check-group input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .select-all-btn {
+            background: #e2e8f0;
+            border: none;
+            border-radius: 40px;
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #1e3c72;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .select-all-btn:active {
+            transform: scale(0.96);
         }
 
         .stats {
@@ -371,6 +449,9 @@
                 padding: 6px 10px;
                 font-size: 1rem;
             }
+            .check-group {
+                gap: 12px;
+            }
         }
     </style>
 </head>
@@ -383,8 +464,27 @@
 
     <div class="search-section">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Buscar por nombre o DNI..." autocomplete="off">
+        <input type="text" id="searchInput" placeholder="Buscar..." autocomplete="off">
         <button id="refreshBtn" class="refresh-btn" title="Recargar datos">🔄</button>
+    </div>
+
+    <div class="advanced-toggle">
+        <button id="advancedBtn" class="advanced-btn">⚙️ Avanzado</button>
+    </div>
+
+    <div id="advancedPanel" class="advanced-panel">
+        <div class="check-group" id="fieldsCheckboxGroup">
+            <label><input type="checkbox" value="N°" checked> N°</label>
+            <label><input type="checkbox" value="NOMBRES Y APELLIDOS" checked> Nombre</label>
+            <label><input type="checkbox" value="DNI" > DNI</label>
+            <label><input type="checkbox" value="NUMERO1" > Teléfono 1</label>
+            <label><input type="checkbox" value="NUMERO2" > Teléfono 2</label>
+            <label><input type="checkbox" value="NUMERO3" > Teléfono 3</label>
+            <label><input type="checkbox" value="OBSERVACIONES" checked> Observaciones</label>
+        </div>
+        <div>
+            <button id="selectAllBtn" class="select-all-btn">✓ Seleccionar todo</button>
+        </div>
     </div>
 
     <div id="statsContainer" class="stats hidden">📌 0 contactos</div>
@@ -414,6 +514,17 @@
     
     let allContacts = [];
     let isLoading = false;
+
+    // Configuración de búsqueda avanzada
+    let activeFields = {
+        'N°': true,
+        'NOMBRES Y APELLIDOS': true,
+        'DNI': true,
+        'NUMERO1': false,
+        'NUMERO2': false,
+        'NUMERO3': false,
+        'OBSERVACIONES': true
+    };
 
     function isValidPhone(value) {
         if (value === undefined || value === null) return false;
@@ -582,18 +693,41 @@
         });
     }
     
+    // Búsqueda respetando los campos activos
     function filterContacts(searchTerm) {
-        if (!searchTerm.trim()) {
+        if (!allContacts.length) return;
+        
+        const term = searchTerm.trim().toLowerCase();
+        if (term === '') {
             renderContacts(allContacts);
             return;
         }
-        const term = searchTerm.toLowerCase().trim();
+        
         const filtered = allContacts.filter(contact => {
-            const nombre = (contact['NOMBRES Y APELLIDOS'] || '').toLowerCase();
-            const dni = (contact['DNI'] || '').toLowerCase();
-            return nombre.includes(term) || dni.includes(term);
+            // Recorrer solo los campos que están activos
+            for (const [field, isActive] of Object.entries(activeFields)) {
+                if (!isActive) continue;
+                let value = contact[field];
+                if (value === undefined || value === null) continue;
+                let strValue = String(value).toLowerCase();
+                if (strValue.includes(term)) {
+                    return true;
+                }
+            }
+            return false;
         });
         renderContacts(filtered);
+    }
+    
+    // Actualizar filtros según checkboxes
+    function updateActiveFields() {
+        const checkboxes = document.querySelectorAll('#fieldsCheckboxGroup input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            activeFields[cb.value] = cb.checked;
+        });
+        // Reaplicar búsqueda actual
+        const searchInput = document.getElementById('searchInput');
+        filterContacts(searchInput.value);
     }
     
     async function loadContacts(silent = false) {
@@ -637,7 +771,9 @@
             }
             
             allContacts = contactsArray;
-            renderContacts(allContacts);
+            // Al cargar nuevos datos, aplicar el filtro actual (con campos activos)
+            const searchInput = document.getElementById('searchInput');
+            filterContacts(searchInput.value);
             if (!silent) loadingDiv.classList.add('hidden');
             
         } catch (err) {
@@ -647,7 +783,6 @@
                 errorDiv.classList.remove('hidden');
                 errorDiv.innerHTML = `⚠️ Error: ${err.message}<br>No se pudo cargar el directorio.`;
             } else {
-                // Si es recarga silenciosa, mostramos el error en la misma zona de estadísticas
                 const statsDiv = document.getElementById('statsContainer');
                 statsDiv.classList.remove('hidden');
                 statsDiv.innerHTML = `⚠️ Error al recargar: ${err.message}`;
@@ -665,7 +800,6 @@
     
     function reloadContacts() {
         if (isLoading) return;
-        // Limpiar búsqueda y recargar
         const searchInput = document.getElementById('searchInput');
         searchInput.value = '';
         loadContacts(false);
@@ -682,9 +816,34 @@
         });
     }
     
+    function setupAdvancedSearch() {
+        const advancedBtn = document.getElementById('advancedBtn');
+        const panel = document.getElementById('advancedPanel');
+        advancedBtn.addEventListener('click', () => {
+            panel.classList.toggle('show');
+        });
+        
+        // Escuchar cambios en checkboxes
+        const checkboxes = document.querySelectorAll('#fieldsCheckboxGroup input[type="checkbox"]');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateActiveFields);
+        });
+        
+        // Botón seleccionar todo
+        const selectAllBtn = document.getElementById('selectAllBtn');
+        selectAllBtn.addEventListener('click', () => {
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => {
+                cb.checked = !allChecked;
+            });
+            updateActiveFields();
+        });
+    }
+    
     document.addEventListener('DOMContentLoaded', () => {
         loadContacts(false);
         setupSearch();
+        setupAdvancedSearch();
         document.getElementById('refreshBtn').addEventListener('click', reloadContacts);
     });
 </script>
