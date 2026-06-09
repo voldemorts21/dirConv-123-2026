@@ -13,58 +13,243 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #f2f4f8;
-            padding: 16px;
-            padding-bottom: 40px;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            padding: 20px 16px 40px;
+            min-height: 100vh;
+            transition: background 0.2s, color 0.2s;
         }
 
         .container {
-            max-width: 600px;
+            max-width: 680px;
             margin: 0 auto;
         }
 
-        .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        /* ========== TEMA MODERNO (por defecto) ========== */
+        body.theme-modern {
+            background: linear-gradient(145deg, #e9eff7 0%, #dce5f0 100%);
+            color: #1e293b;
+        }
+        body.theme-modern .header {
+            background: linear-gradient(125deg, #1e2a5e 0%, #2a3f8a 100%);
             color: white;
-            padding: 24px 20px;
-            border-radius: 28px;
-            margin-bottom: 20px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-radius: 38px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.25);
+        }
+        body.theme-modern .search-section {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        body.theme-modern .advanced-panel {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+        body.theme-modern .contact-card {
+            background: white;
+            box-shadow: 0 15px 30px -12px rgba(0,0,0,0.1);
+        }
+        body.theme-modern .contact-card.deductivo {
+            border-left: 8px solid #e53e3e;
+            background: #fff8f8;
+        }
+        body.theme-modern .btn-call {
+            background: linear-gradient(105deg, #0f9b6e, #0e7f5a);
+        }
+        body.theme-modern .btn-wa {
+            background: linear-gradient(105deg, #25D366, #1da15a);
+        }
+        body.theme-modern .stats {
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(4px);
+        }
+        
+        /* ========== TEMA SOFT ========== */
+        body.theme-soft {
+            background: #fef9f0;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255,245,235,0.4) 0%, rgba(255,255,245,0.8) 90%);
+            color: #1f2e3a;
+        }
+        body.theme-soft .header {
+            background: linear-gradient(115deg, #1b998b 0%, #2d6a8f 100%);
+            border-radius: 48px 48px 48px 24px;
+            box-shadow: 0 20px 35px -10px rgba(27,153,139,0.3);
+        }
+        body.theme-soft .search-section {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+        }
+        body.theme-soft .advanced-panel {
+            background: white;
+            border: 1px solid #ffe4ce;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1);
+        }
+        body.theme-soft .contact-card {
+            background: white;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08);
+            border-radius: 36px;
+        }
+        body.theme-soft .contact-card.deductivo {
+            border-left: 8px solid #f05b56;
+            background: #fffaf8;
+        }
+        body.theme-soft .btn-call {
+            background: #1b998b;
+            box-shadow: 0 5px 12px rgba(27,153,139,0.3);
+        }
+        body.theme-soft .btn-wa {
+            background: #25D366;
+        }
+        body.theme-soft .stats {
+            background: white;
+            border: 1px solid #ffefdf;
         }
 
+        /* ========== TEMA OSCURO ========== */
+        body.theme-dark {
+            background: #0a0c12;
+            color: #e2e8f0;
+        }
+        body.theme-dark .header {
+            background: linear-gradient(125deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+        }
+        body.theme-dark .search-section {
+            background: #1e293b;
+            border: 1px solid #334155;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+        }
+        body.theme-dark .search-section input {
+            color: #f1f5f9;
+        }
+        body.theme-dark .refresh-btn {
+            background: #2d3e5f;
+            color: #cbd5e1;
+        }
+        body.theme-dark .advanced-btn {
+            background: #1e293b;
+            border-color: #334155;
+            color: #94a3b8;
+        }
+        body.theme-dark .advanced-panel {
+            background: #1e293b;
+            border: 1px solid #334155;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.4);
+        }
+        body.theme-dark .check-group label {
+            background: #0f172a;
+            color: #cbd5e1;
+        }
+        body.theme-dark .select-all-btn {
+            background: #2d3e5f;
+            color: #cbd5e1;
+        }
+        body.theme-dark .stats {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #94a3b8;
+        }
+        body.theme-dark .contact-card {
+            background: #1e293b;
+            box-shadow: 0 15px 30px -12px rgba(0,0,0,0.3);
+            border: 1px solid #334155;
+        }
+        body.theme-dark .contact-card.deductivo {
+            border-left: 8px solid #f97316;
+            background: #2d1f1a;
+        }
+        body.theme-dark .contact-number {
+            background: #0f172a;
+            color: #94a3b8;
+        }
+        body.theme-dark .badge-danger {
+            background: #f97316;
+            color: #0f172a;
+        }
+        body.theme-dark .contact-name {
+            color: #f1f5f9;
+        }
+        body.theme-dark .phone-group {
+            background: #0f172a;
+            border: 1px solid #334155;
+        }
+        body.theme-dark .phone-number {
+            color: #cbd5e1;
+        }
+        body.theme-dark .btn-call {
+            background: #0f9b6e;
+            box-shadow: 0 5px 12px rgba(15,155,110,0.3);
+        }
+        body.theme-dark .btn-wa {
+            background: #1da15a;
+        }
+        body.theme-dark .dropdown-btn {
+            background: #2d3e5f;
+            color: #cbd5e1;
+        }
+        body.theme-dark .extra-item {
+            background: #0f172a;
+        }
+        body.theme-dark .footer {
+            border-top-color: #334155;
+            color: #64748b;
+        }
+        body.theme-dark .loading-state,
+        body.theme-dark .error-state,
+        body.theme-dark .empty-state {
+            background: #1e293b;
+            color: #cbd5e1;
+        }
+        body.theme-dark .spinner {
+            border-color: #334155;
+            border-top-color: #0f9b6e;
+        }
+        body.theme-dark .fab {
+            background: #0f9b6e;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        body.theme-dark .theme-menu {
+            background: #1e293b;
+            border: 1px solid #334155;
+        }
+        body.theme-dark .theme-option {
+            color: #f1f5f9;
+        }
+        body.theme-dark .theme-option:hover {
+            background: #334155;
+        }
+
+        /* Estilos comunes para todos los temas */
+        .header {
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            text-align: center;
+            transition: all 0.2s;
+        }
         .header h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
         }
-
         .header p {
             font-size: 0.9rem;
-            opacity: 0.9;
+            opacity: 0.92;
             margin-top: 8px;
         }
-
         .search-section {
-            background: white;
-            border-radius: 60px;
-            margin-bottom: 12px;
-            padding: 4px 16px;
+            border-radius: 80px;
+            margin-bottom: 16px;
+            padding: 6px 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
+            gap: 12px;
+            transition: all 0.2s;
         }
-
-        .search-icon {
-            font-size: 1.3rem;
-        }
-
         .search-section input {
             flex: 1;
             border: none;
@@ -72,390 +257,310 @@
             font-size: 1rem;
             background: transparent;
             outline: none;
+            font-weight: 500;
         }
-
         .refresh-btn {
-            background: #eef2ff;
             border: none;
-            border-radius: 40px;
-            padding: 8px 12px;
+            border-radius: 50px;
+            padding: 9px 16px;
             font-size: 1.2rem;
             cursor: pointer;
             transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: #1e3c72;
             font-weight: 600;
         }
-
-        .refresh-btn:active {
-            transform: scale(0.95);
-            background: #d9e2ef;
-        }
-
-        .refresh-btn.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        /* Botón de búsqueda avanzada */
         .advanced-toggle {
             margin-bottom: 12px;
             text-align: right;
         }
-
         .advanced-btn {
-            background: none;
-            border: none;
+            border: 1px solid #f0e2cf;
             font-size: 0.85rem;
-            font-weight: 500;
-            color: #2a5298;
-            padding: 6px 12px;
-            border-radius: 40px;
-            background: #eef2ff;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 50px;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             cursor: pointer;
-            transition: 0.2s;
+            transition: all 0.2s;
+            background: rgba(255,255,240,0.8);
         }
-
-        .advanced-btn:active {
-            transform: scale(0.96);
-        }
-
         .advanced-panel {
-            background: white;
-            border-radius: 24px;
-            padding: 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border: 1px solid #e2e8f0;
+            border-radius: 32px;
+            padding: 20px 18px;
+            margin-bottom: 20px;
             display: none;
         }
-
         .advanced-panel.show {
             display: block;
+            animation: slideDown 0.2s ease;
         }
-
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .check-group {
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
-
         .check-group label {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 0.85rem;
-            color: #1e293b;
-            cursor: pointer;
-        }
-
-        .check-group input {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .select-all-btn {
-            background: #e2e8f0;
-            border: none;
-            border-radius: 40px;
+            font-weight: 500;
+            background: rgba(255,255,255,0.6);
             padding: 6px 16px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #1e3c72;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .select-all-btn:active {
-            transform: scale(0.96);
-        }
-
-        .stats {
-            background: white;
-            padding: 12px 16px;
             border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #2a5298;
-            text-align: center;
-            margin-bottom: 16px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            cursor: pointer;
         }
-
+        .check-group input {
+            width: 17px;
+            height: 17px;
+            accent-color: #1b998b;
+        }
+        .select-all-btn {
+            border: none;
+            border-radius: 50px;
+            padding: 8px 24px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .stats {
+            padding: 12px 20px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+        }
         .contacts-list {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 20px;
         }
-
         .contact-card {
-            background: white;
-            border-radius: 24px;
-            padding: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: transform 0.1s ease;
-            border: 1px solid #edf2f7;
+            border-radius: 28px;
+            padding: 20px;
+            transition: all 0.25s;
+            border: 1px solid rgba(0,0,0,0.03);
         }
-
-        .contact-card.deductivo {
-            border: 2px solid #e53e3e;
-            background: #fff5f5;
-            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.2);
+        .contact-card:hover {
+            transform: translateY(-4px);
         }
-
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .contact-number {
-            background: #eef2ff;
-            color: #1e3c72;
-            font-weight: 700;
-            font-size: 0.8rem;
-            padding: 4px 12px;
-            border-radius: 40px;
-            display: inline-block;
-        }
-
-        .name-section {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
             margin-bottom: 12px;
         }
-
-        .contact-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #0f172a;
-            line-height: 1.3;
-            word-break: break-word;
+        .contact-number {
+            font-weight: 700;
+            font-size: 0.75rem;
+            padding: 5px 14px;
+            border-radius: 40px;
         }
-
         .badge-danger {
-            background-color: #e53e3e;
-            color: white;
             font-size: 0.7rem;
             font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 30px;
+            padding: 5px 14px;
+            border-radius: 40px;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            letter-spacing: 0.5px;
+            gap: 6px;
         }
-
+        .name-section {
+            margin-bottom: 16px;
+        }
+        .contact-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
         .phone-group {
-            margin: 8px 0 12px 0;
-            background: #f8fafc;
-            border-radius: 30px;
-            padding: 8px 12px;
+            border-radius: 28px;
+            padding: 12px 18px;
+            margin: 12px 0 8px;
+            border: 1px solid #feead9;
         }
-
         .phone-number {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: #1e293b;
-            margin-bottom: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            word-break: break-all;
+            gap: 8px;
         }
-
         .action-buttons {
             display: flex;
-            gap: 12px;
+            gap: 14px;
         }
-
         .btn {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 10px 8px;
-            border-radius: 60px;
+            padding: 12px 8px;
+            border-radius: 44px;
             font-weight: 600;
             font-size: 0.9rem;
             text-decoration: none;
             transition: all 0.2s;
             border: none;
             cursor: pointer;
-        }
-
-        .btn-call {
-            background: #10b981;
             color: white;
-            box-shadow: 0 2px 6px rgba(16,185,129,0.3);
         }
-
-        .btn-call:active {
-            transform: scale(0.97);
-            background: #059669;
-        }
-
-        .btn-wa {
-            background: #25D366;
-            color: white;
-            box-shadow: 0 2px 6px rgba(37,211,102,0.3);
-        }
-
-        .btn-wa:active {
-            transform: scale(0.97);
-            background: #128C7E;
-        }
-
+        .btn:active { transform: scale(0.97); }
         .extra-dropdown {
-            margin-top: 12px;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 12px;
+            margin-top: 16px;
         }
-
         .dropdown-btn {
-            background: #e2e8f0;
             border: none;
             border-radius: 40px;
-            padding: 8px 16px;
+            padding: 10px 24px;
             font-size: 0.85rem;
             font-weight: 600;
-            color: #1e293b;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
             transition: 0.2s;
-            width: auto;
         }
-
-        .dropdown-btn:active {
-            transform: scale(0.96);
-        }
-
         .dropdown-btn.disabled {
             opacity: 0.5;
             pointer-events: none;
-            background: #cbd5e1;
         }
-
         .extra-list {
-            margin-top: 12px;
+            margin-top: 14px;
             display: none;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
         }
-
         .extra-list.show {
             display: flex;
+            animation: fadeIn 0.2s;
         }
-
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
         .extra-item {
-            background: #f1f5f9;
-            border-radius: 20px;
-            padding: 10px 12px;
+            border-radius: 28px;
+            padding: 12px 16px;
         }
-
         .extra-number {
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #334155;
-            margin-bottom: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
-
         .extra-buttons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
-
         .btn-small {
-            flex: 1;
-            padding: 8px 6px;
-            font-size: 0.8rem;
-            gap: 6px;
+            padding: 8px 8px;
+            font-size: 0.75rem;
+            gap: 5px;
         }
-
-        .disabled-link {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
         .loading-state, .error-state, .empty-state {
-            background: white;
-            border-radius: 28px;
-            padding: 48px 20px;
+            border-radius: 44px;
+            padding: 48px 24px;
             text-align: center;
-            color: #4b5563;
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.05);
         }
-
         .spinner {
             width: 48px;
             height: 48px;
             border: 4px solid #e2e8f0;
-            border-top: 4px solid #2a5298;
+            border-top: 4px solid #1b998b;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 16px;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto 18px;
         }
-
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
-        .error-state {
-            color: #dc2626;
-        }
-
-        .hidden {
-            display: none;
-        }
-
         .footer {
             text-align: center;
             font-size: 0.7rem;
-            color: #6c757d;
-            margin-top: 30px;
-            border-top: 1px solid #e2e8f0;
+            margin-top: 32px;
             padding-top: 20px;
+            border-top: 1px solid #ffefdf;
         }
+        .hidden { display: none; }
+        .disabled-link { opacity: 0.5; pointer-events: none; }
 
-        @media (max-width: 480px) {
-            body {
-                padding: 12px;
-            }
-            .btn {
-                font-size: 0.85rem;
-                padding: 9px 6px;
-            }
-            .contact-name {
-                font-size: 1rem;
-            }
-            .refresh-btn {
-                padding: 6px 10px;
-                font-size: 1rem;
-            }
-            .check-group {
-                gap: 12px;
-            }
+        /* Botón flotante común */
+        .fab {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            background: #2a5298;
+            color: white;
+            border: none;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.2s;
+            z-index: 1000;
+        }
+        .fab:active {
+            transform: scale(0.94);
+        }
+        .theme-menu {
+            position: fixed;
+            bottom: 90px;
+            right: 24px;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            padding: 12px 0;
+            display: none;
+            flex-direction: column;
+            z-index: 1001;
+            min-width: 150px;
+        }
+        .theme-menu.show {
+            display: flex;
+        }
+        .theme-option {
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.1s;
+            border: none;
+            background: none;
+            text-align: left;
+        }
+        .theme-option:hover {
+            background: #f0f0f0;
+        }
+        @media (max-width: 520px) {
+            body { padding: 14px 12px; }
+            .header h1 { font-size: 1.6rem; }
+            .contact-name { font-size: 1.1rem; }
+            .btn { font-size: 0.8rem; padding: 10px 6px; }
+            .fab { width: 48px; height: 48px; font-size: 1.5rem; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
-<body>
+<body class="theme-modern">
 <div class="container">
     <div class="header">
         <h1>📇 Directorio</h1>
@@ -469,7 +574,7 @@
     </div>
 
     <div class="advanced-toggle">
-        <button id="advancedBtn" class="advanced-btn">⚙️ Avanzado</button>
+        <button id="advancedBtn" class="advanced-btn">⚙️ Búsqueda avanzada</button>
     </div>
 
     <div id="advancedPanel" class="advanced-panel">
@@ -480,7 +585,7 @@
             <label><input type="checkbox" value="NUMERO1" > Teléfono 1</label>
             <label><input type="checkbox" value="NUMERO2" > Teléfono 2</label>
             <label><input type="checkbox" value="NUMERO3" > Teléfono 3</label>
-            <label><input type="checkbox" value="OBSERVACIONES" checked> Observaciones</label>
+            <label><input type="checkbox" value="OBSERVACIONES" > Observaciones</label>
         </div>
         <div>
             <button id="selectAllBtn" class="select-all-btn">✓ Seleccionar todo</button>
@@ -505,8 +610,16 @@
     <div id="contactsList" class="contacts-list"></div>
 
     <div class="footer">
-        <p>📞 Llamar o WhatsApp | <span style="color:#e53e3e;">Rojo = DEDUCTIVO</span></p>
+        <p>📞 Llamar o WhatsApp | <span style="color:#f05b56;">Rojo = DEDUCTIVO</span></p>
     </div>
+</div>
+
+<!-- Botón flotante y menú de temas -->
+<button id="fab" class="fab">🎨</button>
+<div id="themeMenu" class="theme-menu">
+    <button class="theme-option" data-theme="theme-modern">✨ Moderno</button>
+    <button class="theme-option" data-theme="theme-soft">🌸 Soft</button>
+    <button class="theme-option" data-theme="theme-dark">🌙 Oscuro</button>
 </div>
 
 <script>
@@ -515,22 +628,61 @@
     let allContacts = [];
     let isLoading = false;
 
-    // Configuración de búsqueda avanzada
     let activeFields = {
         'N°': true,
         'NOMBRES Y APELLIDOS': true,
         'DNI': true,
-        'NUMERO1': false,
-        'NUMERO2': false,
-        'NUMERO3': false,
+        'NUMERO1': true,
+        'NUMERO2': true,
+        'NUMERO3': true,
         'OBSERVACIONES': true
     };
 
+    // Caché en sessionStorage (expiración 30 minutos)
+    const CACHE_KEY = 'directorio_contacts';
+    const CACHE_TIMESTAMP_KEY = 'directorio_timestamp';
+    const CACHE_EXPIRY_MS = 30 * 60 * 1000; // 30 minutos
+
+    function saveToCache(data) {
+        try {
+            sessionStorage.setItem(CACHE_KEY, JSON.stringify(data));
+            sessionStorage.setItem(CACHE_TIMESTAMP_KEY, Date.now().toString());
+        } catch(e) { console.warn("No se pudo guardar en sessionStorage", e); }
+    }
+
+    function loadFromCache() {
+        const cached = sessionStorage.getItem(CACHE_KEY);
+        const timestamp = sessionStorage.getItem(CACHE_TIMESTAMP_KEY);
+        if (cached && timestamp) {
+            const age = Date.now() - parseInt(timestamp);
+            if (age < CACHE_EXPIRY_MS) {
+                return JSON.parse(cached);
+            }
+        }
+        return null;
+    }
+
+    // Tema: guardar y aplicar
+    function applyTheme(themeName) {
+        document.body.classList.remove('theme-modern', 'theme-soft', 'theme-dark');
+        document.body.classList.add(themeName);
+        sessionStorage.setItem('directorio_theme', themeName);
+    }
+
+    function loadThemePreference() {
+        const saved = sessionStorage.getItem('directorio_theme');
+        if (saved && (saved === 'theme-modern' || saved === 'theme-soft' || saved === 'theme-dark')) {
+            applyTheme(saved);
+        } else {
+            applyTheme('theme-modern');
+        }
+    }
+
+    // Funciones auxiliares
     function isValidPhone(value) {
         if (value === undefined || value === null) return false;
         let str = String(value).trim();
-        if (str === '' || str === '0') return false;
-        return true;
+        return str !== '' && str !== '0';
     }
 
     function formatPhoneNumber(phone) {
@@ -544,32 +696,24 @@
     }
 
     function getTelLink(phone) {
-        let formatted = formatPhoneNumber(phone);
-        if (!formatted) return '#';
-        return `tel:${formatted}`;
+        let fmt = formatPhoneNumber(phone);
+        return fmt ? `tel:${fmt}` : '#';
     }
 
     function getWhatsAppLink(phone) {
-        let formatted = formatPhoneNumber(phone);
-        if (!formatted) return '#';
-        return `https://wa.me/${formatted.replace('+', '')}`;
+        let fmt = formatPhoneNumber(phone);
+        return fmt ? `https://wa.me/${fmt.replace('+', '')}` : '#';
     }
 
-    function esDeductivo(observacion) {
-        if (!observacion) return false;
-        let obs = String(observacion).trim().toUpperCase();
-        return obs === "DEDUCTIVO";
+    function esDeductivo(obs) {
+        if (!obs) return false;
+        return String(obs).trim().toUpperCase() === "DEDUCTIVO";
     }
 
     function escapeHtml(raw) {
         if (raw == null) return '';
         let str = String(raw);
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
+        return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : (m === '<' ? '&lt;' : '&gt;'));
     }
 
     function renderContacts(contacts) {
@@ -583,7 +727,6 @@
             emptyDiv.classList.remove('hidden');
             return;
         }
-        
         emptyDiv.classList.add('hidden');
         statsDiv.classList.remove('hidden');
         statsDiv.innerHTML = `👥 ${contacts.length} contactos encontrados`;
@@ -592,156 +735,101 @@
         for (let c of contacts) {
             const numero = c['N°'] || '';
             const nombre = (c['NOMBRES Y APELLIDOS'] || 'Sin nombre').trim();
-            const observacion = c['OBSERVACIONES'] || '';
-            const deductivo = esDeductivo(observacion);
+            const deductivo = esDeductivo(c['OBSERVACIONES']);
             const cardClass = deductivo ? 'contact-card deductivo' : 'contact-card';
             const badgeHtml = deductivo ? '<span class="badge-danger">⚠️ DEDUCTIVO</span>' : '';
             
-            let numero1 = c['NUMERO1'];
-            let numero2 = c['NUMERO2'];
-            let numero3 = c['NUMERO3'];
+            let n1 = c['NUMERO1'], n2 = c['NUMERO2'], n3 = c['NUMERO3'];
+            const has1 = isValidPhone(n1), has2 = isValidPhone(n2), has3 = isValidPhone(n3);
+            const hasExtra = has2 || has3;
             
-            const hasNum1 = isValidPhone(numero1);
-            const hasNum2 = isValidPhone(numero2);
-            const hasNum3 = isValidPhone(numero3);
-            const hasAnyExtra = hasNum2 || hasNum3;
+            const tel1 = getTelLink(n1), wa1 = getWhatsAppLink(n1);
+            const disp1 = has1 ? n1 : 'No disponible';
             
-            const telLink1 = hasNum1 ? getTelLink(numero1) : '#';
-            const waLink1 = hasNum1 ? getWhatsAppLink(numero1) : '#';
-            const displayPhone1 = hasNum1 ? numero1 : 'No disponible';
-            
-            let extraItemsHtml = '';
-            if (hasNum2) {
-                const telLink2 = getTelLink(numero2);
-                const waLink2 = getWhatsAppLink(numero2);
-                extraItemsHtml += `
-                    <div class="extra-item">
-                        <div class="extra-number">📱 ${escapeHtml(numero2)}</div>
-                        <div class="extra-buttons">
-                            <a href="${telLink2}" class="btn btn-small btn-call" target="_blank">📞 Llamar</a>
-                            <a href="${waLink2}" class="btn btn-small btn-wa" target="_blank">💬 WhatsApp</a>
-                        </div>
-                    </div>
-                `;
+            let extraHtml = '';
+            if (has2) {
+                extraHtml += `<div class="extra-item"><div class="extra-number">📱 ${escapeHtml(n2)}</div><div class="extra-buttons"><a href="${getTelLink(n2)}" class="btn btn-small btn-call" target="_blank">📞 Llamar</a><a href="${getWhatsAppLink(n2)}" class="btn btn-small btn-wa" target="_blank">💬 WhatsApp</a></div></div>`;
             }
-            if (hasNum3) {
-                const telLink3 = getTelLink(numero3);
-                const waLink3 = getWhatsAppLink(numero3);
-                extraItemsHtml += `
-                    <div class="extra-item">
-                        <div class="extra-number">📱 ${escapeHtml(numero3)}</div>
-                        <div class="extra-buttons">
-                            <a href="${telLink3}" class="btn btn-small btn-call" target="_blank">📞 Llamar</a>
-                            <a href="${waLink3}" class="btn btn-small btn-wa" target="_blank">💬 WhatsApp</a>
-                        </div>
-                    </div>
-                `;
+            if (has3) {
+                extraHtml += `<div class="extra-item"><div class="extra-number">📱 ${escapeHtml(n3)}</div><div class="extra-buttons"><a href="${getTelLink(n3)}" class="btn btn-small btn-call" target="_blank">📞 Llamar</a><a href="${getWhatsAppLink(n3)}" class="btn btn-small btn-wa" target="_blank">💬 WhatsApp</a></div></div>`;
             }
             
-            const dropdownDisabledClass = !hasAnyExtra ? 'disabled' : '';
-            const dropdownBtnHtml = hasAnyExtra ? `
-                <div class="extra-dropdown">
-                    <button class="dropdown-btn ${dropdownDisabledClass}" data-dropdown-btn>
-                        <span>&lt;</span> Extra
-                    </button>
-                    <div class="extra-list" data-extra-list>
-                        ${extraItemsHtml}
-                    </div>
-                </div>
-            ` : '';
+            const dropdown = hasExtra ? `<div class="extra-dropdown"><button class="dropdown-btn" data-dropdown-btn><span>&lt;</span> Extra</button><div class="extra-list" data-extra-list>${extraHtml}</div></div>` : '';
             
             html += `<div class="${cardClass}">
-                <div class="card-header">
-                    <span class="contact-number">#${escapeHtml(numero)}</span>
-                    ${badgeHtml}
-                </div>
-                <div class="name-section">
-                    <div class="contact-name">${escapeHtml(nombre)}</div>
-                </div>
+                <div class="card-header"><span class="contact-number">#${escapeHtml(numero)}</span>${badgeHtml}</div>
+                <div class="name-section"><div class="contact-name">${escapeHtml(nombre)}</div></div>
                 <div class="phone-group">
-                    <div class="phone-number">📱 ${escapeHtml(displayPhone1)}</div>
+                    <div class="phone-number">📱 ${escapeHtml(disp1)}</div>
                     <div class="action-buttons">
-                        <a href="${telLink1}" class="btn btn-call ${!hasNum1 ? 'disabled-link' : ''}" ${!hasNum1 ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">
-                            📞 Llamar
-                        </a>
-                        <a href="${waLink1}" class="btn btn-wa ${!hasNum1 ? 'disabled-link' : ''}" ${!hasNum1 ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">
-                            💬 WhatsApp
-                        </a>
+                        <a href="${tel1}" class="btn btn-call ${!has1 ? 'disabled-link' : ''}" ${!has1 ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">📞 Llamar</a>
+                        <a href="${wa1}" class="btn btn-wa ${!has1 ? 'disabled-link' : ''}" ${!has1 ? 'style="opacity:0.5; pointer-events:none;"' : ''} target="_blank">💬 WhatsApp</a>
                     </div>
                 </div>
-                ${dropdownBtnHtml}
+                ${dropdown}
             </div>`;
         }
         container.innerHTML = html;
         
-        // Event listeners para dropdowns
         document.querySelectorAll('[data-dropdown-btn]').forEach(btn => {
-            if (btn.classList.contains('disabled')) return;
             btn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                const extraList = this.parentElement.querySelector('[data-extra-list]');
-                if (extraList) {
-                    extraList.classList.toggle('show');
-                    const iconSpan = this.querySelector('span');
-                    if (iconSpan && extraList.classList.contains('show')) {
-                        iconSpan.innerHTML = '▼';
-                    } else if (iconSpan) {
-                        iconSpan.innerHTML = '&lt;';
-                    }
+                const list = this.parentElement.querySelector('[data-extra-list]');
+                if (list) {
+                    list.classList.toggle('show');
+                    const span = this.querySelector('span');
+                    if (span) span.innerHTML = list.classList.contains('show') ? '▼' : '&lt;';
                 }
             });
         });
     }
     
-    // Búsqueda respetando los campos activos
-    function filterContacts(searchTerm) {
+    function filterContacts(term) {
         if (!allContacts.length) return;
-        
-        const term = searchTerm.trim().toLowerCase();
-        if (term === '') {
-            renderContacts(allContacts);
-            return;
-        }
-        
-        const filtered = allContacts.filter(contact => {
-            // Recorrer solo los campos que están activos
-            for (const [field, isActive] of Object.entries(activeFields)) {
-                if (!isActive) continue;
-                let value = contact[field];
-                if (value === undefined || value === null) continue;
-                let strValue = String(value).toLowerCase();
-                if (strValue.includes(term)) {
-                    return true;
-                }
+        const search = term.trim().toLowerCase();
+        if (search === '') return renderContacts(allContacts);
+        const filtered = allContacts.filter(c => {
+            for (let [field, active] of Object.entries(activeFields)) {
+                if (!active) continue;
+                let val = c[field];
+                if (val != null && String(val).toLowerCase().includes(search)) return true;
             }
             return false;
         });
         renderContacts(filtered);
     }
     
-    // Actualizar filtros según checkboxes
     function updateActiveFields() {
-        const checkboxes = document.querySelectorAll('#fieldsCheckboxGroup input[type="checkbox"]');
-        checkboxes.forEach(cb => {
-            activeFields[cb.value] = cb.checked;
-        });
-        // Reaplicar búsqueda actual
-        const searchInput = document.getElementById('searchInput');
-        filterContacts(searchInput.value);
+        document.querySelectorAll('#fieldsCheckboxGroup input').forEach(cb => activeFields[cb.value] = cb.checked);
+        const searchVal = document.getElementById('searchInput').value;
+        filterContacts(searchVal);
     }
     
-    async function loadContacts(silent = false) {
+    async function loadContacts(forceRefresh = false) {
         if (isLoading) return;
-        isLoading = true;
         
+        // Si no es forzado, intentar usar caché sin mostrar loading
+        if (!forceRefresh) {
+            const cached = loadFromCache();
+            if (cached && Array.isArray(cached) && cached.length > 0) {
+                allContacts = cached;
+                const searchInput = document.getElementById('searchInput');
+                filterContacts(searchInput.value);
+                // Asegurar que el loading esté oculto y el error también
+                document.getElementById('loadingMessage').classList.add('hidden');
+                document.getElementById('errorMessage').classList.add('hidden');
+                return;
+            }
+        }
+        
+        // Si no hay caché o es forzado, mostrar loading y hacer fetch
+        isLoading = true;
         const refreshBtn = document.getElementById('refreshBtn');
         const loadingDiv = document.getElementById('loadingMessage');
         const errorDiv = document.getElementById('errorMessage');
         
-        if (!silent) {
-            loadingDiv.classList.remove('hidden');
-            errorDiv.classList.add('hidden');
-        }
+        loadingDiv.classList.remove('hidden');
+        errorDiv.classList.add('hidden');
         refreshBtn.classList.add('disabled');
         document.getElementById('contactsList').innerHTML = '';
         document.getElementById('emptyMessage').classList.add('hidden');
@@ -751,47 +839,18 @@
             const response = await fetch(API_URL);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
-            
-            let contactsArray = null;
-            if (Array.isArray(data)) {
-                contactsArray = data;
-            } else if (data.data && Array.isArray(data.data)) {
-                contactsArray = data.data;
-            } else {
-                throw new Error('Formato inesperado');
-            }
-            
-            if (!contactsArray || contactsArray.length === 0) {
-                if (!silent) loadingDiv.classList.add('hidden');
-                document.getElementById('emptyMessage').classList.remove('hidden');
-                document.getElementById('emptyMessage').innerHTML = '📭 No hay contactos registrados.';
-                allContacts = [];
-                renderContacts([]);
-                return;
-            }
-            
+            let contactsArray = Array.isArray(data) ? data : (data.data && Array.isArray(data.data) ? data.data : null);
+            if (!contactsArray || contactsArray.length === 0) throw new Error('Sin datos');
             allContacts = contactsArray;
-            // Al cargar nuevos datos, aplicar el filtro actual (con campos activos)
+            saveToCache(allContacts);
             const searchInput = document.getElementById('searchInput');
             filterContacts(searchInput.value);
-            if (!silent) loadingDiv.classList.add('hidden');
-            
+            loadingDiv.classList.add('hidden');
         } catch (err) {
             console.error(err);
-            if (!silent) {
-                loadingDiv.classList.add('hidden');
-                errorDiv.classList.remove('hidden');
-                errorDiv.innerHTML = `⚠️ Error: ${err.message}<br>No se pudo cargar el directorio.`;
-            } else {
-                const statsDiv = document.getElementById('statsContainer');
-                statsDiv.classList.remove('hidden');
-                statsDiv.innerHTML = `⚠️ Error al recargar: ${err.message}`;
-                setTimeout(() => {
-                    if (statsDiv.innerHTML.includes('Error')) {
-                        statsDiv.classList.add('hidden');
-                    }
-                }, 3000);
-            }
+            loadingDiv.classList.add('hidden');
+            errorDiv.classList.remove('hidden');
+            errorDiv.innerHTML = `⚠️ Error: ${err.message}<br>No se pudo cargar el directorio.`;
         } finally {
             isLoading = false;
             refreshBtn.classList.remove('disabled');
@@ -800,50 +859,59 @@
     
     function reloadContacts() {
         if (isLoading) return;
-        const searchInput = document.getElementById('searchInput');
-        searchInput.value = '';
-        loadContacts(false);
+        document.getElementById('searchInput').value = '';
+        loadContacts(true);
     }
     
     let debounceTimer;
     function setupSearch() {
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', (e) => {
+        const inp = document.getElementById('searchInput');
+        inp.addEventListener('input', (e) => {
             clearTimeout(debounceTimer);
-            debounceTimer = setTimeout(() => {
-                filterContacts(e.target.value);
-            }, 300);
+            debounceTimer = setTimeout(() => filterContacts(e.target.value), 300);
         });
     }
     
-    function setupAdvancedSearch() {
-        const advancedBtn = document.getElementById('advancedBtn');
+    function setupAdvanced() {
+        const btn = document.getElementById('advancedBtn');
         const panel = document.getElementById('advancedPanel');
-        advancedBtn.addEventListener('click', () => {
-            panel.classList.toggle('show');
-        });
-        
-        // Escuchar cambios en checkboxes
-        const checkboxes = document.querySelectorAll('#fieldsCheckboxGroup input[type="checkbox"]');
-        checkboxes.forEach(cb => {
-            cb.addEventListener('change', updateActiveFields);
-        });
-        
-        // Botón seleccionar todo
-        const selectAllBtn = document.getElementById('selectAllBtn');
-        selectAllBtn.addEventListener('click', () => {
-            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-            checkboxes.forEach(cb => {
-                cb.checked = !allChecked;
-            });
+        btn.addEventListener('click', () => panel.classList.toggle('show'));
+        document.querySelectorAll('#fieldsCheckboxGroup input').forEach(cb => cb.addEventListener('change', updateActiveFields));
+        document.getElementById('selectAllBtn').addEventListener('click', () => {
+            const cbs = document.querySelectorAll('#fieldsCheckboxGroup input');
+            const allChecked = Array.from(cbs).every(c => c.checked);
+            cbs.forEach(c => c.checked = !allChecked);
             updateActiveFields();
         });
     }
     
+    function setupFAB() {
+        const fab = document.getElementById('fab');
+        const menu = document.getElementById('themeMenu');
+        fab.addEventListener('click', (e) => {
+            e.stopPropagation();
+            menu.classList.toggle('show');
+        });
+        document.querySelectorAll('.theme-option').forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                const theme = opt.getAttribute('data-theme');
+                if (theme) applyTheme(theme);
+                menu.classList.remove('show');
+            });
+        });
+        document.addEventListener('click', (e) => {
+            if (!fab.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove('show');
+            }
+        });
+    }
+    
     document.addEventListener('DOMContentLoaded', () => {
-        loadContacts(false);
+        loadThemePreference();
+        loadContacts(false); // Esto ahora no mostrará loading si hay caché
         setupSearch();
-        setupAdvancedSearch();
+        setupAdvanced();
+        setupFAB();
         document.getElementById('refreshBtn').addEventListener('click', reloadContacts);
     });
 </script>
